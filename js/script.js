@@ -16,7 +16,7 @@ let hangmanImg = document.querySelector("#hangman"); // Sträng: sökväg till b
 
 let msgHolderEl = document.querySelector("#message"); // DOM-nod: Ger meddelande när spelet är över
 let startGameBtnEl = document.querySelector("#startGameBtn"); // DOM-nod: knappen som du startar spelet med
-let letterButtonEls; // Array av DOM-noder: Knapparna för bokstäverna
+let letterButtonEls = document.querySelectorAll("#letterButtons > li > button"); // Array av DOM-noder: Knapparna för bokstäverna
 let letterBoxEls = document.querySelector("#letterBoxes > ul"); // Array av DOM-noder: Rutorna där bokstäverna ska stå
 
 // Funktion som startar spelet vid knapptryckning, och då tillkallas andra funktioner
@@ -30,7 +30,6 @@ function startGame() {
 // Funktion som slumpar fram ett ord
 function generateRandomWord() {
   selectedWord = wordList[Math.floor(Math.random() * wordList.length)];
-  console.log(selectedWord);
 }
 
 // Funktion som tar fram bokstävernas rutor, antal rutor beror på vilket ord slumptas fram
@@ -45,6 +44,27 @@ function createLetterBoxes() {
 }
 
 // Funktion som körs när du trycker på bokstäverna och gissar bokstav
+letterButtonEls.forEach((btn) => {
+  btn.addEventListener("click", checkLetter);
+});
+function checkLetter(e) {
+  let state = false;
+  let letter = e.target.value;
+  for (let i = 0; i < selectedWord.length; i++) {
+    if (selectedWord.charAt(i) === letter) {
+      state = true;
+    }
+  }
+  if (state) {
+    //rightLetter();
+    console.log("right");
+  } else {
+    //wrongLetter();
+    console.log("wrong");
+  }
+}
+
+checkLetter();
 
 // Funktion som ropas vid vinst eller förlust, gör olika saker beroende tillståndet
 
