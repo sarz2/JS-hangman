@@ -22,13 +22,6 @@ let letterBoxEls = document.querySelector("#letterBoxes > ul"); // Array av DOM-
 // Funktion som startar spelet vid knapptryckning, och då tillkallas andra funktioner
 startGameBtnEl.addEventListener("click", startGame);
 
-function disableButtons() {
-  for (let i = 0; i < letterButtonEls.length; i++) {
-    letterButtonEls[i].disabled = true;
-  }
-}
-disableButtons();
-
 function startGame() {
   guesses = 0;
   points = 0;
@@ -39,6 +32,15 @@ function startGame() {
   }
   hangmanImg.src = `images/h0.png`;
 }
+
+//Funktion för att stänga av knapparna innan spelets början
+function disableButtons() {
+  for (let i = 0; i < letterButtonEls.length; i++) {
+    letterButtonEls[i].disabled = true;
+  }
+}
+disableButtons();
+
 // Funktion som slumpar fram ett ord
 function generateRandomWord() {
   selectedWord = wordList[Math.floor(Math.random() * wordList.length)];
@@ -76,6 +78,8 @@ function checkLetter(e) {
 
 checkLetter();
 
+//Funktion som körs när rätt bokstav klickas
+
 function rightLetter(letter) {
   for (let i = 0; i < selectedWord.length; i++) {
     if (selectedWord.charAt(i) === letter) {
@@ -92,6 +96,8 @@ function rightLetter(letter) {
     }
   }
 }
+
+//Funktion som körs när fel bokstav klickas
 
 function wrongLetter() {
   guesses++;
